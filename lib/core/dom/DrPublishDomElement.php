@@ -62,7 +62,7 @@ class DrPublishDomElement
             $domElement = $newContent;
         } else if (is_string($newContent)) {
             $domElement = $this->ownerDocument->createDocumentFragment();
-            $domElement->appendXML($newContent);
+            $domElement->appendXML(preg_replace(['#[^[\x20-\x7E]]#', '#&(?!amp)#'], ['', '&amp;'], $newContent));
         }
         if ($domElement->ownerDocument != $this->ownerDocument) {
             $this->ownerDocument->importNode($domElement, true);
